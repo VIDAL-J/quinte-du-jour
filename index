@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prono Quinté - 15 Juillet 2025</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🏇 Quinté du Jour – 15 Juillet 2025</h1>
 
+  <div class="buttons">
+    <button onclick="afficherPronostic('equidia')">🔍 Pronostic Equidia</button>
+    <button onclick="afficherPronostic('geny')">🔍 Pronostic Geny</button>
+    <button onclick="afficherPronostic('turf')">🔍 Pronostic Turf</button>
+  </div>
+
+  <div id="pronostic-container"></div>
+
+  <div id="tableau-chevaux"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
