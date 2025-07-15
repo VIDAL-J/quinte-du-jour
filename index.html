@@ -2,21 +2,20 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prono Quinté - 15 Juillet 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prono Quinté du Jour</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>🏇 Quinté du Jour – 15 Juillet 2025</h1>
+  <h1>🎯 Prono Quinté du 15 juillet 2025</h1>
 
-  <div class="buttons">
-    <button onclick="afficherPronostic('equidia')">🔍 Pronostic Equidia</button>
-    <button onclick="afficherPronostic('geny')">🔍 Pronostic Geny</button>
-    <button onclick="afficherPronostic('turf')">🔍 Pronostic Turf</button>
+  <div id="boutons-pronostics">
+    <button onclick="afficherPronostic('equidia')">📺 Equidia</button>
+    <button onclick="afficherPronostic('paris-turf')">📰 Paris Turf</button>
+    <button onclick="afficherPronostic('tierce-mag')">📊 Tiercé Magazine</button>
   </div>
 
-  <div id="pronostic-container"></div>
-
+  <div id="contenu-pronostics"></div>
   <div id="tableau-chevaux"></div>
 
   <script src="script.js"></script>
