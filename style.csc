@@ -1,87 +1,93 @@
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("data/2025-07-15-R1C4.csv")
-    .then((res) => res.text())
-    .then((csv) => {
-      const rows = csv.trim().split("\n").map(row => row.split(";"));
-      const headers = rows[0].map(h => h.trim().toLowerCase());
-      const data = rows.slice(1).map(row => {
-        const obj = {};
-        headers.forEach((h, i) => {
-          obj[h] = row[i]?.trim() || "";
-        });
-        return obj;
-      });
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      // Ajouter une colonne "cote" vide
-      data.forEach(d => d["cote"] = "");
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: #f7f9fc;
+  padding: 20px;
+  color: #333;
+}
 
-      // Trier les chevaux par cote si elle existe et est un nombre
-      data.sort((a, b) => {
-        const ca = parseFloat(a.cote.replace(",", "."));
-        const cb = parseFloat(b.cote.replace(",", "."));
-        return isNaN(ca) ? 1 : isNaN(cb) ? -1 : ca - cb;
-      });
+/* Titre */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
 
-      // Création du tableau
-      const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      thead.innerHTML = `
-        <tr>
-          <th>N°</th>
-          <th>Cheval</th>
-          <th>Jockey</th>
-          <th>Déf.</th>
-          <th>S&A</th>
-          <th>Poids</th>
-          <th>Performances</th>
-          <th>Côte</th>
-        </tr>
-      `;
-      table.appendChild(thead);
+/* Boutons de pronostics */
+#boutons-pronostics {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
 
-      const tbody = document.createElement("tbody");
-      data.forEach(row => {
-        const tr = document.createElement("tr");
-        if (row.cote && parseFloat(row.cote.replace(",", ".")) <= 5) {
-          tr.classList.add("cote-favori");
-        }
-        tr.innerHTML = `
-          <td>${row["n°"] || ""}</td>
-          <td>${row["cheval"] || ""}</td>
-          <td>${row["jockey"] || ""}</td>
-          <td>${row["déf."] || ""}</td>
-          <td>${row["s&a"] || ""}</td>
-          <td>${row["poids"] || ""}</td>
-          <td>${row["performances"] || ""}</td>
-          <td contenteditable="true">${row["cote"]}</td>
-        `;
-        tbody.appendChild(tr);
-      });
+#boutons-pronostics button {
+  background-color: #0077cc;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
 
-      table.appendChild(tbody);
-      document.getElementById("tableau-chevaux").appendChild(table);
-    });
-});
+#boutons-pronostics button:hover {
+  background-color: #005fa3;
+}
 
-// Pronostics dynamiques
-function afficherPronostic(source) {
-  const container = document.getElementById("pronostic-container");
-  let html = "";
+/* Zone des pronostics */
+#contenu-pronostics {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 800px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
 
-  switch (source) {
-    case "equidia":
-      html = "<strong>Pronostic Equidia :</strong><br>3 - 6 - 1 - 13 - 4";
-      break;
-    case "geny":
-      html = "<strong>Pronostic Geny :</strong><br>1 - 13 - 6 - 3 - 14";
-      break;
-    case "turf":
-      html = "<strong>Pronostic Turf :</strong><br>13 - 3 - 6 - 1 - 7";
-      break;
-    default:
-      html = "Source inconnue.";
+/* Tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+thead {
+  background-color: #0077cc;
+  color: white;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+  th, td {
+    font-size: 0.85rem;
+    padding: 8px;
   }
 
-  container.innerHTML = html;
-  container.style.display = "block";
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  #contenu-pronostics {
+    padding: 10px;
+  }
 }
